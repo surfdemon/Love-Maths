@@ -46,8 +46,10 @@ const checkAnswer = () => {
     let isCorrect = userAnswer === calculatedAnswer[0];
     if (isCorrect){ 
         alert(`Hey you got it right! :)`);
+        incrementScore();
     } else {
         alert(`Awww... You answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
+        incrementWrongScore();
     }
     runGame(calculatedAnswer[1]);
 }
@@ -65,9 +67,15 @@ const calculateCorrectAnswer = () => {
     }
  }
 
-const incrementScore = () => { }
+const incrementScore = () => { 
+    document.getElementById('score').innerText = parseInt(document.getElementById('score').innerText) + 1;
+    document.getElementById('answer-box').value = '';
+}
 
-const incrementWrongScore = () => { }
+const incrementWrongScore = () => {
+    document.getElementById('incorrect').innerText = parseInt(document.getElementById('incorrect').innerText) + 1;
+    document.getElementById('answer-box').value = '';
+ }
 
 const displayAdditionQuestion = (operand1, operand2) => {
     document.getElementById('operand1').textContent = operand1;
