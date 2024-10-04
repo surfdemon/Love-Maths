@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let buttons = document.getElementsByTagName('button');
     for (let button of buttons ){ 
         button.addEventListener('click', () => {
-            if (button.getAttribute('data-type') === "Submit"){ 
-                alert("You clicked submit!");
+            if (button.getAttribute('data-type') === "submit"){ 
+                checkAnswer();
             } else { 
                 let gameType = button.getAttribute('data-type');
                 runGame(gameType);
@@ -34,9 +34,36 @@ const runGame = (gameType) => {
     }
 }
 
-const checkAnswer = () => { }
 
-const calculateCorrectAnswer = () => { }
+/**
+ * Checks the answer against the first element in 
+ * the returned calculateCorrectAnswer array.
+ */
+const checkAnswer = () => {
+    let userAnswer = parseInt(document.getElementById('answer-box').value);
+    let calculatedAnswer = calculateCorrectAnswer();
+    console.log(calculatedAnswer[0]);
+    let isCorrect = userAnswer === calculatedAnswer[0];
+    if (isCorrect){ 
+        alert(`Hey you got it right! :)`);
+    } else {
+        alert(`Awww... You answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
+    }
+    runGame(calculatedAnswer[1]);
+}
+
+const calculateCorrectAnswer = () => {
+    let operand1 = parseInt(document.getElementById('operand1').innerText);
+    let operand2 = parseInt(document.getElementById('operand2').innerText);
+    let operator = document.getElementById('operator').innerText;
+    
+    if(operator === '+'){ 
+        return [ operand1 + operand2, "addition"];
+    } else { 
+        alert(`Unimplemented operator ${operator}`);
+        throw `Unimplemented operator ${operator}`;
+    }
+ }
 
 const incrementScore = () => { }
 
@@ -48,10 +75,22 @@ const displayAdditionQuestion = (operand1, operand2) => {
     document.getElementById('operator').textContent = '+';
  }
 
-const displaySubtractQuestion = () => { }
+const displaySubtractQuestion = (operand1, operand2) => { 
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = '-';
+}
 
-const displayMultiplyQuestion = () => { }
+const displayMultiplyQuestion = (operand1, operand2) => { 
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = 'x';
+}
 
-const displayDivisionQuestion = () => { }
+const displayDivisionQuestion = (operand1, operand2) => { 
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = '/';
+}
 
 
